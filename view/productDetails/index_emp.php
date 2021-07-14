@@ -119,8 +119,7 @@
 
 </section>
 
-<section class="product-comments pb-5 <?php echo $this->newProduct ? "d-none" : "";
-                                        /*echo $this->tienePermiso("DELCOM") ? "" : "d-none"*/ ?>">
+<section class="product-comments pb-5 <?php echo $this->newProduct || !$this->tienePermiso($this->codes[2]["Code"]) ? "d-none" : "";?>">
     <div class="container">
         <h2 class="display-4 comen-m">Comentarios</h2>
         <hr class="linea">

@@ -12,6 +12,7 @@
 
             if($this->isEmpleado()){
 
+                $this->view->codes = $this->modelo->getPermisosCodes();
                 $this->view->render("perfil/index_emp");
 
             }else{

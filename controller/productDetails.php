@@ -30,6 +30,7 @@
                 $this->view->newEspec = $this->isSubmit("newEspecificacion");
                 $this->view->setEspec = $this->isSubmit("editEspecificacion");
                 $this->view->mostrarEspec = $this->isSubmit("mostrarEspec");
+                $this->view->codes = $this->modelo->getPermisosCodes();
                 $this->view->render("productDetails/index_emp");
 
             }else{
