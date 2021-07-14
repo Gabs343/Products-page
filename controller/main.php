@@ -32,6 +32,7 @@ class Main extends Controller
             $this->view->mostrarFiltro = $this->isSubmit("mostrarFiltro");
             $this->view->cambiarFiltro = $this->isSubmit("cambiarFiltro");
             $this->view->addPermiso = $this->isSubmit("addPermiso");
+            $this->view->codes = $this->modelo->getPermisosCodes();
             $this->view->ingresarCategoria = $this->isSubmit("ingresarFiltro");
             $this->view->render("main/index_emp");
 
