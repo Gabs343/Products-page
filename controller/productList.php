@@ -18,6 +18,7 @@
             if($this->isEmpleado()){
 
                 $this->view->mostrar = $this->isSubmit("mostrarProducto");
+                $this->view->codes = $this->modelo->getPermisosCodes();
                 $this->view->render("productList/index_emp");
 
             }else{
