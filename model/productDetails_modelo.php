@@ -235,5 +235,26 @@
             }
             return $exito;
         }
+
+        public function setCampoDinamico($campo){
+            $exito = false;
+            $array = array(
+                "ID_Producto" => array_pop($campo)
+            );
+            $query = "INSERT INTO campo_dinamico (label, tipo, requerido, opcion) VALUES
+                        (:label, :tipo, :requerido, :opcion)";
+            $con = $this->db->connect();
+            $con = $con->prepare($query);
+            if($con->execute($campo)){
+               $query = "INSERT INTO rel_producto_campodinamico (ID_Producto, ID_CampoDinamico) VALUES
+                        (:ID_Producto, (SELECT ID FROM campo_dinamico WHERE ID = (SELECT MAX(ID) FROM campo_dinamico)))";
+                $con = $this->db->connect();
+                $con = $con->prepare($query);
+                if($con->execute($array)){
+                    $exito = true;
+                }
+            }
+            return $exito;
+        }
     }
 ?>
