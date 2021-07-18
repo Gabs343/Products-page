@@ -1,6 +1,6 @@
 <?php require "view/header.php"; ?>
-<section class="container m-5  <?php echo $_GET["showList"] == "Clientes" ? "" : "d-none" ?>">  
-<h1>Clientes</h1>
+<section class="container m-5  <?php echo $_GET["showList"] == "Clientes" ? "" : "d-none" ?>">
+    <h1>Clientes</h1>
     <hr>
     <table>
         <thead>
@@ -45,7 +45,7 @@
 
 
 <section class="container m-5 <?php echo $_GET["showList"] == "Perfiles" ? "" : "d-none" ?>">
-    <div> 
+    <div>
         <h1>Perfiles</h1>
         <hr>
         <table>
@@ -61,7 +61,7 @@
                     <form action="<?php $_PHP_SELF; ?>" method="POST">
                         <tr>
                             <td><?php if (isset($_POST["editarPer-" . $cont])) { ?>
-                                <input type="text" name="nombre" placeholder="<?php echo $clave["Nombre"]; ?>" value="<?php echo $clave["Nombre"]; ?>" required>
+                                    <input type="text" name="nombre" placeholder="<?php echo $clave["Nombre"]; ?>" value="<?php echo $clave["Nombre"]; ?>" required>
                                 <?php } else {
                                     echo $clave["Nombre"];
                                 } ?>
@@ -70,12 +70,12 @@
                             <td class="">
                                 <?php if (isset($_POST["editarPer-" . $cont])) { ?>
                                     <input type="submit" name="editPerfil" value="Confirmar">
-                                    </td>
-                            <?php } else { ?>
-                                <input type="submit" name="editarPer-<?php echo $cont; ?>" value="Editar"></td>
-                            <?php } ?> </td>
+                            </td>
+                        <?php } else { ?>
+                            <input type="submit" name="editarPer-<?php echo $cont; ?>" value="Editar"></td>
+                        <?php } ?> </td>
 
-                            <td class=""> <input class="" type="submit" name="statePerfil" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
+                        <td class=""> <input class="" type="submit" name="statePerfil" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
                         </tr>
                         <input type="hidden" name="ID" value="<?php echo $clave["ID"]; ?>">
                     </form>
@@ -91,63 +91,71 @@
         </form>
     </div>
 
-    <div>
+    <div class="mt-5">
         <h1>Permisos</h1>
         <hr>
 
         <form action="<?php $_PHP_SELF; ?>" method="POST">
-            
+
             <select name="permiso" id="">
-                <?php foreach ($this->permisos as $clave) { if(isset($_POST["verPermiso"]) || isset($_POST["editarPermiso"])){ if($clave["ID"] == $_POST["permiso"]){?>
-                    <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option>
-                <?php } }else{ ?> 
-                    <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option> 
-                <?php } }?>    
+                <?php foreach ($this->permisos as $clave) {
+                    if (isset($_POST["verPermiso"]) || isset($_POST["editarPermiso"])) {
+                        if ($clave["ID"] == $_POST["permiso"]) { ?>
+                            <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option>
+                        <?php }
+                    } else { ?>
+                        <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option>
+                <?php }
+                } ?>
             </select>
-            <?php if(isset($_POST["verPermiso"]) || isset($_POST["editarPermiso"])){ ?> 
+            <?php if (isset($_POST["verPermiso"]) || isset($_POST["editarPermiso"])) { ?>
                 <input type="submit" name="buscar" value="Buscar">
-            <?php }else { ?>
+            <?php } else { ?>
                 <input type="submit" name="verPermiso" value="Ver">
             <?php } ?>
             <table class="<?php echo isset($_POST["permiso"]) ? "" : "d-none"; ?>">
-            <thead>
-                <th>Nombre</th>
-                <th>Code</th>
-                <th class="">Editar</th>
-                <th class="">Activar/Desactivar</th>
-            </thead>
-            <tbody>
-                <?php if(isset($_POST["permiso"])) { foreach($this->permisos as $clave) { if($clave["ID"] == $_POST["permiso"]) {?>
-                    
-                        <tr>
-                            <td><?php if (isset($_POST["editarPermiso"])) { ?>
-                                <input type="text" name="nombre" placeholder="<?php echo $clave["Nombre"]; ?>" value="<?php echo $clave["Nombre"]; ?>">
-                                <?php } else {
-                                    echo $clave["Nombre"];
-                                } ?>
-                            </td>
+                <thead>
+                    <th>Nombre</th>
+                    <th>Code</th>
+                    <th class="">Editar</th>
+                    <th class="">Activar/Desactivar</th>
+                </thead>
+                <tbody>
+                    <?php if (isset($_POST["permiso"])) {
+                        foreach ($this->permisos as $clave) {
+                            if ($clave["ID"] == $_POST["permiso"]) { ?>
 
-                            <td><?php if (isset($_POST["editarPermiso"])) { ?>
-                                <input type="text" name="code" placeholder="<?php echo $clave["Code"]; ?>" value="<?php echo $clave["Code"]; ?>">
-                                <?php } else {
-                                    echo $clave["Code"];
-                                } ?>
-                            </td>
-
-                            <td class="">
-                                <?php if (isset($_POST["editarPermiso"])) { ?>
-                                    <input type="submit" name="editPermiso" value="Confirmar">
+                                <tr>
+                                    <td><?php if (isset($_POST["editarPermiso"])) { ?>
+                                            <input type="text" name="nombre" placeholder="<?php echo $clave["Nombre"]; ?>" value="<?php echo $clave["Nombre"]; ?>">
+                                        <?php } else {
+                                            echo $clave["Nombre"];
+                                        } ?>
                                     </td>
-                            <?php } else { ?>
-                                <input type="submit" name="editarPermiso" value="Editar"></td>
-                            <?php } ?> </td>
 
-                            <td class=""> <input class="" type="submit" name="statePermiso" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
-                        </tr>
-                        <input type="hidden" name="ID" value="<?php echo $clave["ID"]; ?>">
-                <?php } } } ?>    
-            </tbody>
-        </table>
+                                    <td><?php if (isset($_POST["editarPermiso"])) { ?>
+                                            <input type="text" name="code" placeholder="<?php echo $clave["Code"]; ?>" value="<?php echo $clave["Code"]; ?>">
+                                        <?php } else {
+                                            echo $clave["Code"];
+                                        } ?>
+                                    </td>
+
+                                    <td class="">
+                                        <?php if (isset($_POST["editarPermiso"])) { ?>
+                                            <input type="submit" name="editPermiso" value="Confirmar">
+                                    </td>
+                                <?php } else { ?>
+                                    <input type="submit" name="editarPermiso" value="Editar"></td>
+                                <?php } ?> </td>
+
+                                <td class=""> <input class="" type="submit" name="statePermiso" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
+                                </tr>
+                                <input type="hidden" name="ID" value="<?php echo $clave["ID"]; ?>">
+                    <?php }
+                        }
+                    } ?>
+                </tbody>
+            </table>
         </form>
 
         <h3>Añadir</h3>
@@ -157,6 +165,76 @@
             <label for="code">Código del Permiso:</label>
             <input type="text" name="code">
             <input type="submit" name="addPermiso" value="Ingresar">
+        </form>
+    </div>
+
+    <div class="mt-5">
+        <h1>Añadir permisos al perfil</h1>
+        <hr>
+        <form action="<?php $_PHP_SELF; ?>" method="POST">
+            <select name="perfil">
+                <?php foreach ($this->perfiles as $clave) {
+                    if (isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])) {
+                        if ($clave["ID"] == $_POST["perfil"]) { ?>
+                            <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option>
+                        <?php }
+                    } else { ?>
+                        <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Nombre"]; ?></option>
+                <?php }
+                } ?>
+            </select>
+
+            <?php if (isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])) { ?>
+                <input type="submit" name="buscar" value="Buscar">
+            <?php } else { ?>
+                <input type="submit" name="getPermisosPerfil" value="Ver">
+            <?php } ?>
+
+
+            <div class="<?php echo isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])  ? "" : "d-none"; ?>">
+
+                <div>
+                    <div >
+                        Permisos Activos: 
+                        <select name="permiso-Act">
+                            <option value="">--</option>
+                            <?php
+                            if (isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])) {
+                                foreach ($this->permisosPerfil as $clave) {
+                                    if ($clave["Activo"]) { ?>
+                                        <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Code"]; ?></option>
+                            <?php }
+                                }
+                            } ?>
+                        </select>
+                    </div>
+
+                    <div >
+                        Permisos Desactivados:
+                        <select name="permiso-Desc">
+                            <option value="">--</option>
+                            <?php
+                            if (isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])) {
+                                foreach ($this->permisosPerfil as $clave) {
+                                    if (!$clave["Activo"]) { ?>
+                                        <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Code"]; ?></option>
+                            <?php }
+                                }
+                            } ?>
+                        </select>
+                    </div>
+                    <input class="" type="submit" name="statePermisoPerfil" value="Cambiar">
+                </div>
+
+                <h3>Añadir</h3>
+                <select name="setPermiso">
+                    <?php foreach ($this->permisos as $clave) { ?>
+                        <option value="<?php echo $clave["ID"]; ?>"><?php echo $clave["Code"]; ?></option>
+                    <?php } ?>
+                </select>
+                <input class="" type="submit" name="setPermisoPerfil" value="Añadir">
+            </div>
+
         </form>
     </div>
 
@@ -199,13 +277,13 @@
         </tbody>
     </table>
     <div class="<?php echo $this->tienePermiso($this->codes[11]["Code"]) ? "" : "d-none"; ?>">
-    <h3>Añadir</h3>
-    <form action="<?php $_PHP_SELF; ?>" method="POST">
-        <label for="categoria">Nombre de la Categoria:</label>
-        <input type="text" name="filtro">
-        <input type="hidden" name="tabla" value="categoria">
-        <input type="submit" name="ingresarFiltro" value="Ingresar">
-    </form>
+        <h3>Añadir</h3>
+        <form action="<?php $_PHP_SELF; ?>" method="POST">
+            <label for="categoria">Nombre de la Categoria:</label>
+            <input type="text" name="filtro">
+            <input type="hidden" name="tabla" value="categoria">
+            <input type="submit" name="ingresarFiltro" value="Ingresar">
+        </form>
     </div>
 </section>
 
@@ -245,13 +323,13 @@
         </tbody>
     </table>
     <div class="<?php echo $this->tienePermiso($this->codes[11]["Code"]) ? "" : "d-none"; ?>">
-    <h3>Añadir</h3>
-    <form action="<?php $_PHP_SELF; ?>" method="POST">
-        <label for="marca">Nombre de la Marca:</label>
-        <input type="text" name="filtro">
-        <input type="hidden" name="tabla" value="marca">
-        <input type="submit" name="ingresarFiltro" value="Ingresar">
-    </form>
+        <h3>Añadir</h3>
+        <form action="<?php $_PHP_SELF; ?>" method="POST">
+            <label for="marca">Nombre de la Marca:</label>
+            <input type="text" name="filtro">
+            <input type="hidden" name="tabla" value="marca">
+            <input type="submit" name="ingresarFiltro" value="Ingresar">
+        </form>
     </div>
 </section>
 
@@ -292,13 +370,13 @@
         </tbody>
     </table>
     <div class="<?php echo $this->tienePermiso($this->codes[11]["Code"]) ? "" : "d-none"; ?>">
-    <h3>Añadir</h3>
-    <form action="<?php $_PHP_SELF; ?>" method="POST">
-        <label for="condicion">Nombre de la Condicion:</label>
-        <input type="text" name="filtro">
-        <input type="hidden" name="tabla" value="condicion">
-        <input type="submit" name="ingresarFiltro" value="Ingresar">
-    </form>
+        <h3>Añadir</h3>
+        <form action="<?php $_PHP_SELF; ?>" method="POST">
+            <label for="condicion">Nombre de la Condicion:</label>
+            <input type="text" name="filtro">
+            <input type="hidden" name="tabla" value="condicion">
+            <input type="submit" name="ingresarFiltro" value="Ingresar">
+        </form>
     </div>
 </section>
 
