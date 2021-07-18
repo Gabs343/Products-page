@@ -32,8 +32,15 @@ class Main extends Controller
             $this->view->mostrarFiltro = $this->isSubmit("mostrarFiltro");
             $this->view->cambiarFiltro = $this->isSubmit("cambiarFiltro");
             $this->view->addPermiso = $this->isSubmit("addPermiso");
+            $this->view->statePermisoPerfil = $this->isSubmit("statePermisoPerfil");
+            $this->view->setPermisoPerfil = $this->isSubmit("setPermisoPerfil");
             $this->view->codes = $this->modelo->getPermisosCodes();
             $this->view->ingresarCategoria = $this->isSubmit("ingresarFiltro");
+
+            if(isset($_POST["getPermisosPerfil"]) || isset($_POST["statePermisoPerfil"]) || isset($_POST["setPermisoPerfil"])){
+                $this->view->permisosPerfil = $this->getPermisosPerfil();
+            }
+
             $this->view->render("main/index_emp");
 
         } else {
@@ -190,5 +197,49 @@ class Main extends Controller
         if ($insertar) {
             echo "<meta http-equiv='refresh' content='0'>";
         }
+    }
+
+    public function getPermisosPerfil(){
+        $perfil = intval($_POST["perfil"]);
+        $permisosPerfil = $this->modelo->getPermisosPerfil($perfil);
+        if(!empty($permisosPerfil)){
+            return $permisosPerfil;
+        }
+    }
+
+    public function statePermisoPerfil(){
+        
+        if(!empty($_POST["permiso-Desc"]) && !empty($_POST["permiso-Act"])){
+            $estado = array(
+                "Perfil" => intval($_POST["perfil"]),
+                "Permiso" => intval($_POST["permiso-Act"]), 
+                "permisoDesc" => intval($_POST["permiso-Desc"]),  
+                "Desactivado" => 1,
+                "Activo" => 0
+            );
+        } else if (!empty($_POST["permiso-Act"]) && empty($_POST["permiso-Desc"])) {
+            $estado = array(
+                "Perfil" => intval($_POST["perfil"]),
+                "Permiso" => intval($_POST["permiso-Act"]), 
+                "Activo" => 0
+            );
+        }else if (!empty($_POST["permiso-Desc"]) && empty($_POST["permiso-Act"])){
+            $estado = array(
+                "Perfil" => intval($_POST["perfil"]),
+                "Permiso" => intval($_POST["permiso-Desc"]), 
+                "Activo" => 1,
+            );
+        }
+
+        $exito = $this->modelo->updatePermisosPerfil($estado);
+    }
+
+    public function setPermisoPerfil(){
+        $nuevoPermisoPerfil = array(
+            "ID_Perfil" => intval($_POST["perfil"]),
+            "ID_Permiso" => intval($_POST["setPermiso"])
+        );
+
+        $exito = $this->modelo->setPermisoPerfil($nuevoPermisoPerfil);
     }
 }
