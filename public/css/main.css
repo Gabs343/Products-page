@@ -560,6 +560,13 @@ h1, .contacto-h2 h2, .loguearse h2 {
     margin: 0 9px;
 }
 
+.camposDinamicos div{
+    background: none;
+    position: static;
+    margin: 20px 0;
+    width: 90%;
+}
+
 /*_____-----PSEUDOCLASES-----_____*/
 
 .navbar-dark .navbar-nav .nav-link:hover{
