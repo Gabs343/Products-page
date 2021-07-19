@@ -38,10 +38,12 @@
 
                 $producto = $this->modelo->getProducto();
                 $comentarios = $this->modelo->getComments();
+                $camposDinamicos = $this->modelo->getCamposDinamicos();
                 $puntuarProducto = $this->puntuarProducto($comentarios);
                 $this->view->producto = $producto;
                 $this->view->comentarios = $comentarios;
                 $this->view->puntos = $puntuarProducto;
+                $this->view->camposDinamicos = $camposDinamicos;
                 $this->view->enviar = $this->isSubmit("sendComment");
                 $this->view->render("productDetails/index");
 
@@ -198,7 +200,7 @@
         );
         $exito = $this->modelo->setCampoDinamico($campo);
         if($exito){
-            echo "true";
+            /*echo "true";*/
         }
     }
     
