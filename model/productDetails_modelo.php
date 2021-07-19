@@ -256,5 +256,22 @@
             }
             return $exito;
         }
+
+        public function getCamposDinamicos(){
+            $camposDinamicos = [];
+            try{
+                $query = "SELECT * FROM campo_dinamico cd INNER JOIN rel_producto_campodinamico WHERE ID_CampoDinamico = cd.ID AND ID_Producto = $_GET[id]";
+                $con = $this->db->connect();
+                $con = $con->query($query);
+                while($row = $con->fetch(PDO::FETCH_ASSOC)){ 
+                    $row["opcion"] = explode(",", $row["opcion"]);
+                    array_push($camposDinamicos, $row);
+                    
+                }
+                return $camposDinamicos;
+            }catch(PDOException $e){
+                return[];
+            }
+        }
     }
 ?>
