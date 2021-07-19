@@ -69,6 +69,27 @@
                         <textarea name="comentario" class="form-control" id="Comentario" cols="50" rows="2"
                             required></textarea>
                     </div>
+                    
+                    <?php foreach($this->camposDinamicos as $clave){ ?>
+                        <div class="col-12">
+                            <label for="campoDinamico-<?php echo $clave["ID"] ?>"><?php echo $clave["label"]; ?></label>
+                            <?php if($clave["tipo"] == "select"){ ?>
+                                <select name="campoDinamico-<?php echo $clave["ID"] ?>" id="">
+                                    <?php foreach($clave["opcion"] as $subclave => $valor){ ?>
+                                        <option value="<?php echo $valor; ?>"
+                                        name="campoDinamico"
+                                        <?php echo $clave["requerido"] = 1 ? "required": ""; ?>><?php echo $valor; ?></option>
+                                    <?php } ?>
+                                </select>
+                            <?php }else{ foreach($clave["opcion"] as $subclave => $valor){ ?>
+                                <input type="<?php echo $clave["tipo"]; ?>" 
+                                        name="campoDinamico-<?php echo $clave["ID"] ?>"
+                                        value="<?php echo $valor; ?>"
+                                        <?php echo $clave["requerido"] = 1 ? "required": ""; ?>><?php echo $valor; ?></input>
+                            <?php } } ?>
+                        </div>
+                    <?php } ?>
+                    
                     <div>
                         <input class="btn btn-primary ml-3 mt-4" type="submit" name="sendComment"
                             value="Enviar comentario">

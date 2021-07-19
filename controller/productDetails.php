@@ -31,16 +31,19 @@
                 $this->view->setEspec = $this->isSubmit("editEspecificacion");
                 $this->view->mostrarEspec = $this->isSubmit("mostrarEspec");
                 $this->view->codes = $this->modelo->getPermisosCodes();
+                $this->view->campo = $this->isSubmit("setCampo");
                 $this->view->render("productDetails/index_emp");
 
             }else{
 
                 $producto = $this->modelo->getProducto();
                 $comentarios = $this->modelo->getComments();
+                $camposDinamicos = $this->modelo->getCamposDinamicos();
                 $puntuarProducto = $this->puntuarProducto($comentarios);
                 $this->view->producto = $producto;
                 $this->view->comentarios = $comentarios;
                 $this->view->puntos = $puntuarProducto;
+                $this->view->camposDinamicos = $camposDinamicos;
                 $this->view->enviar = $this->isSubmit("sendComment");
                 $this->view->render("productDetails/index");
 
@@ -185,6 +188,20 @@
         if ($exito) {
             echo "<meta http-equiv='refresh' content='0'>";
         } 
+    }
+
+    public function setCampo(){
+        $campo = array(
+            "label" => $_POST["label"],
+            "tipo" => $_POST["tipo"],
+            "requerido" => intval($_POST["requerido"]),
+            "opcion" => $_POST["opcion"],
+            "ID_Producto" => intval($_GET["id"])
+        );
+        $exito = $this->modelo->setCampoDinamico($campo);
+        if($exito){
+            /*echo "true";*/
+        }
     }
     
 }

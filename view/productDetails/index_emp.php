@@ -140,6 +140,34 @@
                         <a href="productDetails?<?php echo "id=" . $_GET["id"] ?>">Limpiar Filtros</a>
                     </li>
                 </ul>
+        
+                <h3>Campos Dinámicos</h3>
+                <hr class="linea">
+                
+                <form action="" method="POST" class="camposDinamicos">
+                    <div>
+                        <label for="label">Label: </label>
+                        <input type="text" name="label" id="" required>
+                    </div>
+                    <div>
+                        <label for="tipo">Tipo de campo: </label>
+                        <select name="tipo" id="">
+                            <option value="select" required>Select</option>
+                            <option value="checkbox" required>Checkbox</option>
+                            <option value="radio" required>Radio button</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="requerido">¿Requerido? </label>
+                        <input type="radio" name="requerido" value="1" required>Si</input>
+                        <input type="radio" name="requerido" value="0" required>No</input>
+                    </div>
+                    <div>
+                        <label for="opcion">Opciones:</label>
+                        <input type="text" name="opcion" id="" required>
+                    </div>
+                    <input type="submit" name="setCampo" value="Añadir Campo">
+                </form>
             </div>
             <div class="col">
                 <ul>
