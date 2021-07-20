@@ -13,9 +13,11 @@
                     $producto = $this->modelo->getProducto();
                     $comentarios = $this->modelo->getComments();
                     $especificaciones = $this->modelo->getEspecificaciones();
+                    $camposDinamicos = $this->modelo->getCamposDinamicos();
                     $this->view->producto = $producto;
                     $this->view->comentarios = $comentarios;
                     $this->view->especificaciones = $especificaciones;
+                    $this->view->camposDinamicos = $camposDinamicos;
                 }
                 $marcas = $this->modelo->getFiltro("marca");
                 $categorias = $this->modelo->getFiltro("categoria");
@@ -32,6 +34,8 @@
                 $this->view->mostrarEspec = $this->isSubmit("mostrarEspec");
                 $this->view->codes = $this->modelo->getPermisosCodes();
                 $this->view->campo = $this->isSubmit("setCampo");
+                $this->view->stateCampo = $this->isSubmit("stateCampo");
+                $this->view->editCampo = $this->isSubmit("editCampo");
                 $this->view->render("productDetails/index_emp");
 
             }else{
@@ -207,6 +211,42 @@
         $exito = $this->modelo->setCampoDinamico($campo);
         if($exito){
             /*echo "true";*/
+        }
+    }
+
+    public function stateCampo(){
+        
+        if ($_POST["stateCampo"] == "Activar") {
+            $estado = array(
+                "ID" => intval($_POST["ID"]),
+                "Activo" => 1 
+            );
+        }else if($_POST["stateCampo"] == "Desactivar"){
+            $estado = array(
+                "ID" => intval($_POST["ID"]),
+                "Activo" => 0
+            );
+        }
+        
+        $exito = $this->modelo->updateStateCampo($estado);
+        if ($exito) {
+            echo "<meta http-equiv='refresh' content='0'>";
+        } 
+    }
+
+    public function editCampo(){
+        
+        $datos = array(
+            "ID" => intval($_POST["ID"]),
+            "label" => $_POST["label"],
+            "tipo" => $_POST["tipo"],
+            "requerido" => intval($_POST["requerido"]),
+            "opcion" => $_POST["opcion"]
+        );
+        var_dump($datos);
+        $exito = $this->modelo->updateCampo($datos);
+        if($exito){
+            echo "<meta http-equiv='refresh' content='0'>";
         }
     }
     
