@@ -168,6 +168,82 @@
                     </div>
                     <input type="submit" name="setCampo" value="Añadir Campo">
                 </form>
+
+                <h3 class="mt-5">Editar Campos Dinámicos</h3>
+                <hr class="linea">
+                    <table>
+                        <thead>
+                            <th>Label</th>
+                            <th>Tipo</th>
+                            <th>Requerido</th>
+                            <th>Opcion</th>
+                            <th class="">Editar</th>
+                            <th class="">Activar/Desactivar</th>
+                        </thead>
+                        <tbody>
+                        
+                            <?php $cont = 0;
+                                foreach($this->camposDinamicos as $clave){
+                                    $cont++; ?>
+                                    <form action="" method="post">
+                                    <tr>
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="text" name="label" id="" placeholder="<?php echo $clave["label"]; ?>" value="<?php echo $clave["label"]; ?>" required>
+                                            <?php } else { ?>
+                                                <?php echo $clave["label"]; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <select name="tipo" id="" required>
+                                                    <option value="select" required>Select</option>
+                                                    <option value="checkbox" required>Checkbox</option>
+                                                    <option value="radio" required>Radio button</option>
+                                                </select>
+                                            <?php } else { ?>
+                                                <?php echo $clave["tipo"]; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <select name="requerido" id="" required>
+                                                    <option value="1" required>Si</option>
+                                                    <option value="0" required>No</option>
+                                                </select>
+                                            <?php } else { ?>
+                                                <?php echo $clave["requerido"] = 1 ? "Si" : "No"; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="text" name="opcion" id="" placeholder="<?php echo implode(",", $clave["opcion"]); ?>" value="<?php echo implode(",", $clave["opcion"]); ?>" required>
+                                            <?php } else { ?>
+                                                <?php echo implode(",", $clave["opcion"]); ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="submit" name="editCampo" value="Confirmar">
+                                            <?php } else { ?>
+                                                <input type="submit" name="editarCampo-<?php echo $cont; ?>" value="Editar">
+                                            <?php } ?> 
+                                        </td>
+                                        <input type="hidden" name="ID" value="<?php echo $clave["ID"]; ?>">
+                                        <td><input class="" type="submit" name="stateCampo" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
+                                        
+                                    </tr>
+                                    </form>
+                                <?php }
+                            ?>
+                            
+                        </tbody>
+                    </table>
+                
             </div>
             <div class="col">
                 <ul>
@@ -182,7 +258,14 @@
                                     <?php } ?>
                                     <br>
                             <?php } else if ($subclave != "Mostrar" && $subclave != "ID") {
+                                if($subclave == "campo_Dinamico"){
+                                    foreach($subvalor as $deepClave){
+                                        echo $deepClave["Label"], ": ", $deepClave["Valor"], "<br>";
+                                    }
+                                }else{
                                     echo $subclave, ": ", $subvalor, "<br>";
+                                }
+                                    
                                 }
                             } ?>
                             <form action="<?php $_PHP_SELF; ?>" method="POST">
