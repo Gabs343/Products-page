@@ -70,7 +70,7 @@
                             required></textarea>
                     </div>
                     
-                    <?php foreach($this->camposDinamicos as $clave){ ?>
+                    <?php foreach($this->camposDinamicos as $clave) { if($clave["Activo"]){ ?>
                         <div class="col-12">
                             <label for="campoDinamico-<?php echo $clave["ID"] ?>"><?php echo $clave["label"]; ?></label>
                             <?php if($clave["tipo"] == "select"){ ?>
@@ -88,7 +88,7 @@
                                         <?php echo $clave["requerido"] = 1 ? "required": ""; ?>><?php echo $valor; ?></input>
                             <?php } } ?>
                         </div>
-                    <?php } ?>
+                    <?php } } ?>
                     
                     <div>
                         <input class="btn btn-primary ml-3 mt-4" type="submit" name="sendComment"
@@ -111,7 +111,13 @@
                                             <?php } ?>
                                             <br>
                                         <?php }else if($subclave != "Mostrar" && $subclave != "ID"){
-                                            echo $subclave, ": ", $subvalor, "<br>";
+                                            if($subclave == "campo_Dinamico"){
+                                                foreach($subvalor as $deepClave){
+                                                    echo $deepClave["Label"], ": ", $deepClave["Valor"], "<br>";
+                                                }
+                                            }else{
+                                                echo $subclave, ": ", $subvalor, "<br>";
+                                            }
                                         }
                                     } ?>
                             </li>
