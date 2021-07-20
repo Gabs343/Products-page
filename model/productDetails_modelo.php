@@ -53,16 +53,51 @@
         }
 
         public function InsertComment($datos){
+            $exito = false;
+            $camposDinamicos = [];
+            foreach($datos as $clave => $valor){
+                if(str_contains($clave, "campoDinamico-")){
+                    $campo = [];
+
+                    $idCampoDinamico = explode("-", $clave);
+                    $campo["ID_CampoDinamico"] = intval($idCampoDinamico[1]);
+
+                    $campo["ID_Comentario"] = $datos["ID"];
+
+                    $campo["Valor"] = array_pop($datos);
+
+                    array_push($camposDinamicos, $campo);
+                }
+            }
+
             $query = "INSERT INTO comentario (ID, Comentario, Valoracion, Fecha, ID_Producto, ID_Cliente, Ip, Mostrar) VALUES
                         (:ID, :Comentario, :Valoracion, now(), :ID_Producto, :ID_Cliente, :Ip, 0)";
             $con = $this->db->connect();
             $con = $con->prepare($query);
 
             if($con->execute($datos)){
-                return true;
-            }else{
-                return false;
+                if (!empty($camposDinamicos)) {
+                    $cont = 0;
+                    foreach ($camposDinamicos as $clave) {
+                        
+                        $query = "INSERT INTO rel_comentario_campodinamico (ID_CampoDinamico, ID_Comentario, Valor) VALUES
+                        (:ID_CampoDinamico, :ID_Comentario, :Valor)";
+                        $con = $this->db->connect();
+                        $con = $con->prepare($query);
+                        if($con->execute($clave)){
+                            $cont++;
+                        }
+                    }
+
+                    if($cont = count($camposDinamicos)){
+                        $exito = true;
+                    }
+                }else{
+                    $exito = true;
+                }
             }
+
+            return $exito;
         }
 
         public function getComments(){
