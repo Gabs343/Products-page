@@ -59,8 +59,14 @@
                 "ID_Producto" => $_GET["id"],
                 "ID_Cliente" => empty($_SESSION) ? 0 : $_SESSION["Key"],
                 "Ip" => gethostbyname(php_uname("n"))
-               
             );
+
+            foreach($_POST as $clave => $valor){
+                if(str_contains($clave, "campoDinamico-")){
+                    $datos[$clave] = $valor;
+                }
+            }
+
             $insertar = $this->modelo->InsertComment($datos);
             $mensaje = '';
             if (!$insertar){
