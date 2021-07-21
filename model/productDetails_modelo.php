@@ -53,16 +53,51 @@
         }
 
         public function InsertComment($datos){
+            $exito = false;
+            $camposDinamicos = [];
+            foreach($datos as $clave => $valor){
+                if(str_contains($clave, "campoDinamico-")){
+                    $campo = [];
+
+                    $idCampoDinamico = explode("-", $clave);
+                    $campo["ID_CampoDinamico"] = intval($idCampoDinamico[1]);
+
+                    $campo["ID_Comentario"] = $datos["ID"];
+
+                    $campo["Valor"] = array_pop($datos);
+
+                    array_push($camposDinamicos, $campo);
+                }
+            }
+
             $query = "INSERT INTO comentario (ID, Comentario, Valoracion, Fecha, ID_Producto, ID_Cliente, Ip, Mostrar) VALUES
                         (:ID, :Comentario, :Valoracion, now(), :ID_Producto, :ID_Cliente, :Ip, 0)";
             $con = $this->db->connect();
             $con = $con->prepare($query);
 
             if($con->execute($datos)){
-                return true;
-            }else{
-                return false;
+                if (!empty($camposDinamicos)) {
+                    $cont = 0;
+                    foreach ($camposDinamicos as $clave) {
+                        
+                        $query = "INSERT INTO rel_comentario_campodinamico (ID_CampoDinamico, ID_Comentario, Valor) VALUES
+                        (:ID_CampoDinamico, :ID_Comentario, :Valor)";
+                        $con = $this->db->connect();
+                        $con = $con->prepare($query);
+                        if($con->execute($clave)){
+                            $cont++;
+                        }
+                    }
+
+                    if($cont = count($camposDinamicos)){
+                        $exito = true;
+                    }
+                }else{
+                    $exito = true;
+                }
             }
+
+            return $exito;
         }
 
         public function getComments(){
@@ -86,6 +121,45 @@
                 while($row = $con->fetch(PDO::FETCH_ASSOC)){
                     array_push($comentarios, $row);
                 }
+                
+                $query = "SELECT COUNT(*) as cantidad FROM comentario c
+                            inner join rel_comentario_campodinamico rcc ON c.ID = rcc.ID_Comentario  
+                            WHERE ID_Producto  =  $_GET[id]";
+                $con = $this->db->connect();
+                $con = $con->query($query);
+                $row = $con->fetch(PDO::FETCH_ASSOC);
+
+                if($row["cantidad"] > 0){
+                    $query = "SELECT ID_Comentario, Label, Valor FROM campo_dinamico cd
+                            inner join rel_comentario_campodinamico rcc ON cd.ID = rcc.ID_CampoDinamico 
+                            inner join comentario c ON rcc.ID_Comentario = c.ID
+                            WHERE ID_Producto  =  $_GET[id]";
+
+                    $con = $this->db->connect();
+                    $con = $con->query($query);
+                    
+                    $camposDinamicos = [];
+                    while($row = $con->fetch(PDO::FETCH_ASSOC)){
+                        array_push($camposDinamicos, $row); 
+                    }
+
+            
+                    for($i=0; $i < count($comentarios); $i++){
+                        for($k=0; $k < count($camposDinamicos); $k++){
+                            if($comentarios[$i]["ID"] == $camposDinamicos[$k]["ID_Comentario"]){
+                                if(!array_key_exists("campo_Dinamico", $comentarios[$i])){
+                                    $comentarios[$i]["campo_Dinamico"] = array();
+                                }
+                                array_push($comentarios[$i]["campo_Dinamico"], $camposDinamicos[$k]);
+                            }
+                        }
+                    }
+
+                    
+               
+                }
+                
+                
                 return $comentarios;
             }catch(PDOException $e){
                 return [];
@@ -260,7 +334,9 @@
         public function getCamposDinamicos(){
             $camposDinamicos = [];
             try{
-                $query = "SELECT * FROM campo_dinamico cd INNER JOIN rel_producto_campodinamico WHERE ID_CampoDinamico = cd.ID AND ID_Producto = $_GET[id]";
+                $query = "SELECT * FROM campo_dinamico cd 
+                    INNER JOIN rel_producto_campodinamico 
+                    WHERE ID_CampoDinamico = cd.ID AND ID_Producto = $_GET[id]";
                 $con = $this->db->connect();
                 $con = $con->query($query);
                 while($row = $con->fetch(PDO::FETCH_ASSOC)){ 
@@ -273,5 +349,30 @@
                 return[];
             }
         }
+
+        public function updateStateCampo($estado){
+            $exito = false;
+            $query="UPDATE campo_dinamico SET Activo = $estado[Activo] WHERE  ID = $estado[ID]";
+            $con = $this->db->connect();
+            if($con = $con->query($query)){
+                $exito = true;
+            }
+            return $exito;
+        }
+
+        public function updateCampo($campo){
+            $exito = false;
+            $query="UPDATE campo_dinamico SET label = '$campo[label]',
+                                        tipo = '$campo[tipo]',
+                                        requerido = $campo[requerido],
+                                        opcion = '$campo[opcion]'
+                                        WHERE  ID = $campo[ID]";
+            $con = $this->db->connect();
+            if($con = $con->query($query)){
+                $exito = true;
+            }
+            return $exito;
+        }
+
     }
 ?>
