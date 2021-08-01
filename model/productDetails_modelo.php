@@ -114,7 +114,9 @@
                 }else{
                     $query = $query." AND Mostrar = 1"; 
                 }
-    
+                
+                $query = $query." ORDER BY comentario.ID DESC";
+                
                 $con = $this->db->connect();
                 $con = $con->query($query);
 
