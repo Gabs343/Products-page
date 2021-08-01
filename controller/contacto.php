@@ -7,7 +7,7 @@
 
         function render(){
             if($this->isEmpleado()){
-                $consultas = $this->modelo->getConsultas();
+                $consultas = $this->modelo->getConsult();
                 $codes = $this->modelo->getPermisosCodes();
                 $this->view->codes = $codes;
                 $this->view->consultas = $consultas;
