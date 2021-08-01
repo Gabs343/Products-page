@@ -7,8 +7,10 @@
 
         function render(){
             if($this->isEmpleado()){
-
-                $this->view->codes = $this->modelo->getPermisosCodes();
+                $consultas = $this->modelo->getConsultas();
+                $codes = $this->modelo->getPermisosCodes();
+                $this->view->codes = $codes;
+                $this->view->consultas = $consultas;
                 $this->view->render("contacto/index_emp");
 
             }else{
