@@ -2,7 +2,7 @@
 <section class="container m-5  <?php echo $_GET["showList"] == "Clientes" ? "" : "d-none" ?>">
     <h1>Clientes</h1>
     <hr>
-    <table>
+    <table class="tabla">
         <thead>
             <th>Nombre</th>
             <th>Apellido</th>
@@ -48,7 +48,7 @@
     <div>
         <h1>Perfiles</h1>
         <hr>
-        <table>
+        <table class="tabla">
             <thead>
                 <th>Nombre</th>
                 <th class="">Editar</th>
@@ -113,7 +113,7 @@
             <?php } else { ?>
                 <input type="submit" name="verPermiso" value="Ver">
             <?php } ?>
-            <table class="<?php echo isset($_POST["permiso"]) ? "" : "d-none"; ?>">
+            <table class="tabla <?php echo isset($_POST["permiso"]) ? "" : "d-none"; ?>">
                 <thead>
                     <th>Nombre</th>
                     <th>Code</th>
@@ -243,7 +243,7 @@
 <section class="container m-5 <?php echo $_GET["showList"] == "Categorias" ? "" : "d-none" ?>">
     <h1>Categorias</h1>
     <hr>
-    <table>
+    <table class="tabla">
         <thead>
             <th>Nombre</th>
             <th class="<?php echo $this->tienePermiso($this->codes[12]["Code"]) ? "" : "d-none" ?>">Editar</th>
@@ -290,7 +290,7 @@
 <section class="container m-5 <?php echo $_GET["showList"] == "Marcas" ? "" : "d-none" ?>">
     <h1>Marcas</h1>
     <hr>
-    <table>
+    <table class="tabla">
         <thead>
             <th>Nombre</th>
             <th class="<?php echo $this->tienePermiso($this->codes[12]["Code"]) ? "" : "d-none"; ?>">Editar</th>
@@ -336,7 +336,7 @@
 <section class="container m-5 <?php echo $_GET["showList"] == "Condiciones" ? "" : "d-none" ?>">
     <h1>Condiciones</h1>
     <hr>
-    <table>
+    <table class="tabla">
         <thead>
             <th>Nombre</th>
             <th class="<?php echo $this->tienePermiso($this->codes[12]["Code"]) ? "" : "d-none"; ?>">Editar</th>

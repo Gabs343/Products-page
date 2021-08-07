@@ -247,6 +247,11 @@ ul {
     margin: 100px;
 }
 
+.tabla{
+    border-collapse: separate;
+    border-spacing: 30px 1px;
+}
+
 /*_____-----SKIN-----_____*/
 body{
     background: #ffffff;  /* fallback for old browsers */
@@ -560,11 +565,15 @@ h1, .contacto-h2 h2, .loguearse h2 {
     margin: 0 9px;
 }
 
-.camposDinamicos div{
+.camposDinamicos div, .filtro .camposDinamicos{
     background: none;
     position: static;
     margin: 20px 0;
     width: 90%;
+}
+
+.filtro .camposDinamicos{
+    margin-top: 150px;
 }
 
 /*_____-----PSEUDOCLASES-----_____*/

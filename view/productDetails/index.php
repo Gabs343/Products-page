@@ -78,14 +78,14 @@
                                     <?php foreach($clave["opcion"] as $subclave => $valor){ ?>
                                         <option value="<?php echo $valor; ?>"
                                         name="campoDinamico"
-                                        <?php echo $clave["requerido"] = 1 ? "required": ""; ?>><?php echo $valor; ?></option>
+                                        <?php echo $clave["requerido"] ? "required": ""; ?>><?php echo $valor; ?></option>
                                     <?php } ?>
                                 </select>
                             <?php }else{ foreach($clave["opcion"] as $subclave => $valor){ ?>
                                 <input type="<?php echo $clave["tipo"]; ?>" 
                                         name="campoDinamico-<?php echo $clave["ID"] ?>"
                                         value="<?php echo $valor; ?>"
-                                        <?php echo $clave["requerido"] = 1 ? "required": ""; ?>><?php echo $valor; ?></input>
+                                        <?php echo $clave["requerido"] ? "required": ""; ?>><?php echo $valor; ?></input>
                             <?php } } ?>
                         </div>
                     <?php } } ?>

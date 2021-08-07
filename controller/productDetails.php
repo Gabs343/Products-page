@@ -243,7 +243,6 @@
             "requerido" => intval($_POST["requerido"]),
             "opcion" => $_POST["opcion"]
         );
-        var_dump($datos);
         $exito = $this->modelo->updateCampo($datos);
         if($exito){
             echo "<meta http-equiv='refresh' content='0'>";

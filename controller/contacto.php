@@ -28,7 +28,8 @@
                 "email" => $_POST["email"],
                 "celular" => $_POST["celular"],
                 "area" => $_POST["area"],
-                "mensaje" => $_POST["mensaje"] 
+                "mensaje" => $_POST["mensaje"],
+                "fechaContacto" => intval(date("YmdHis"))
             );
 
             $exito = $this->modelo->insertConsulta($consulta);
