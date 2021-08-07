@@ -48,11 +48,11 @@
     </section>
 </form>
 
-<section class="product-details container-fluid <?php echo $this->newProduct ? "d-none" : ""; ?>">
+<section class="product-details  <?php echo $this->newProduct ? "d-none" : ""; ?>">
     <h2 class="display-4">Características</h2>
     <hr class="linea">
-    <form action="<?php $_PHP_SELF; ?>" method="POST">
-        <table>
+    <form action="<?php $_PHP_SELF; ?>" method="POST" class="container">
+        <table class="tabla">
 
             <thead>
                 <tr>
@@ -140,11 +140,12 @@
                         <a href="productDetails?<?php echo "id=" . $_GET["id"] ?>">Limpiar Filtros</a>
                     </li>
                 </ul>
-        
+                
+                <div class="camposDinamicos">
                 <h3>Campos Dinámicos</h3>
                 <hr class="linea">
                 
-                <form action="" method="POST" class="camposDinamicos">
+                <form action="" method="POST" >
                     <div>
                         <label for="label">Label: </label>
                         <input type="text" name="label" id="" required>
@@ -168,10 +169,45 @@
                     </div>
                     <input type="submit" name="setCampo" value="Añadir Campo">
                 </form>
-
-                <h3 class="mt-5">Editar Campos Dinámicos</h3>
+                </div>
+                
+            </div>
+            <div class="col">
+                <ul>
+                    <?php foreach ($this->comentarios as $clave) { ?>
+                        <li class="comen-muestra">
+                            <?php
+                            foreach ($clave as $subclave => $subvalor) {
+                                if ($subclave == "Valoracion") {
+                                    echo $subclave, ": ";
+                                    for ($i = 0; $i < $subvalor; $i++) { ?>
+                                        <i class="fas fa-star"></i>
+                                    <?php } ?>
+                                    <br>
+                            <?php } else if ($subclave != "Mostrar" && $subclave != "ID") {
+                                if($subclave == "campo_Dinamico"){
+                                    foreach($subvalor as $deepClave){
+                                        echo $deepClave["Label"], ": ", $deepClave["Valor"], "<br>";
+                                    }
+                                }else{
+                                    echo $subclave, ": ", $subvalor, "<br>";
+                                }
+                                    
+                                }
+                            } ?>
+                            <form action="<?php $_PHP_SELF; ?>" method="POST">
+                                <input type="hidden" name="date" value="<?php echo $clave["ID"]; ?>">
+                                <input type="submit" name="mostrarComment" value="<?php echo $clave["Mostrar"] == 0 ? "Activar" : "Desactivar"; ?>">
+                            </form>
+                        </li>
+                    <?php  } ?>
+                </ul>
+            </div>
+        </div>
+        <div>
+        <h3 class="mt-5">Editar Campos Dinámicos</h3>
                 <hr class="linea">
-                    <table>
+                    <table  class="tabla">
                         <thead>
                             <th>Label</th>
                             <th>Tipo</th>
@@ -181,7 +217,6 @@
                             <th class="">Activar/Desactivar</th>
                         </thead>
                         <tbody>
-                        
                             <?php $cont = 0;
                                 foreach($this->camposDinamicos as $clave){
                                     $cont++; ?>
@@ -243,39 +278,6 @@
                             
                         </tbody>
                     </table>
-                
-            </div>
-            <div class="col">
-                <ul>
-                    <?php foreach ($this->comentarios as $clave) { ?>
-                        <li class="comen-muestra">
-                            <?php
-                            foreach ($clave as $subclave => $subvalor) {
-                                if ($subclave == "Valoracion") {
-                                    echo $subclave, ": ";
-                                    for ($i = 0; $i < $subvalor; $i++) { ?>
-                                        <i class="fas fa-star"></i>
-                                    <?php } ?>
-                                    <br>
-                            <?php } else if ($subclave != "Mostrar" && $subclave != "ID") {
-                                if($subclave == "campo_Dinamico"){
-                                    foreach($subvalor as $deepClave){
-                                        echo $deepClave["Label"], ": ", $deepClave["Valor"], "<br>";
-                                    }
-                                }else{
-                                    echo $subclave, ": ", $subvalor, "<br>";
-                                }
-                                    
-                                }
-                            } ?>
-                            <form action="<?php $_PHP_SELF; ?>" method="POST">
-                                <input type="hidden" name="date" value="<?php echo $clave["ID"]; ?>">
-                                <input type="submit" name="mostrarComment" value="<?php echo $clave["Mostrar"] == 0 ? "Activar" : "Desactivar"; ?>">
-                            </form>
-                        </li>
-                    <?php  } ?>
-                </ul>
-            </div>
         </div>
     </div>
 </section>
