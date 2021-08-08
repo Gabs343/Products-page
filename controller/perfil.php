@@ -8,16 +8,19 @@
         public function render(){
             $info = $this->modelo->getInfo();
             $this->view->info = $info;
-
             $this->view->upImg = $this->isSubmit("sendImg");
-            $this->view->render("perfil/index");
-        }
 
-        public function renderForEmpleados(){
-            $info = $this->modelo->getInfo();
-            $this->view->info = $info;
-            $this->view->upImg = $this->isSubmit("sendImg");
-            $this->view->render("perfil/index_emp");
+            if($this->isEmpleado()){
+
+                $this->view->codes = $this->modelo->getPermisosCodes();
+                $this->view->render("perfil/index_emp");
+
+            }else{
+
+                $this->view->render("perfil/index");
+
+            }
+            
         }
 
         public function sendImg(){

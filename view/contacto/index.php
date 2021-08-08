@@ -21,7 +21,7 @@
 		    <div class="col-4 mb-3">
 		        <h2 class="mb-3">Contactanos</h4>
 
-		        <form method="post" action="correo_respuesta.php" enctype="multipart/form-data" class="form-horizontal">
+		        <form method="post" action="<?php $_PHP_SELF; ?>" enctype="multipart/form-data" class="form-horizontal">
                 <fieldset>
                 <div class="form-group">
            
@@ -57,7 +57,7 @@
 		            <textarea rows="3" id="textarea" placeholder="Mensaje" name="mensaje" class="form-control" required></textarea>
 	            </div>
 
-		        <button class="btn btn-primary mt-2" type="submit" name="enviar">Enviar</button>
+		        <button class="btn btn-primary mt-2" type="submit" name="sendConsulta">Enviar</button>
 
 	            </fieldset>
                 </form>

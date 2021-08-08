@@ -15,11 +15,8 @@
                 $controlador = new $ruta;
                 $controlador->loadModel($ruta);
 
-                if($controlador->getPerfil() > 2){
-                    $controlador->renderForEmpleados();
-                }else{
-                    $controlador->render();
-                }
+                $controlador->render();
+                
             }else{
                 $controlador = new Errores();
             }

@@ -6,6 +6,13 @@ function TextDescription($string){
         echo $array_text[$i] == "." ? "<br><br>" : "";
     }
 }
+
+function showArrayContent($array){
+    echo "<pre>";
+    print_r($array);
+    echo "</pre>";
+}
+
 /*
 function consulta($txt) {?>
 <script>

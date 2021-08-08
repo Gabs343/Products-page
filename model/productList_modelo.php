@@ -95,12 +95,8 @@
                     $query = $query." WHERE ID_Condicion = $_GET[condicion]";
                 }
 
-                if(empty($_SESSION)){
+                if(!$this->isEmpleado){
                     $query = $query." AND Activo = 1";
-                }else{
-                    if($_SESSION["Perfil"] <= 2){
-                        $query = $query." AND Activo = 1";    
-                    }
                 }
 
                 if($_GET["orden"] == "ASC" || $_GET["orden"] == "DESC"){

@@ -13,6 +13,15 @@ ul {
     list-style-type: none;
 }
 
+.nav-item a{
+    margin: 0 25px;
+}
+
+.dropdown-item{
+    width: auto;
+    margin: 20px 0;
+}
+
 .product-section{
     margin: 130px 0;
 }
@@ -175,7 +184,7 @@ ul {
 }
 
 .separador-navbar {
-    margin-left: 500px;
+    margin-left: 85px;
     margin-right: -150px;
 }
 
@@ -238,6 +247,11 @@ ul {
     margin: 100px;
 }
 
+.tabla{
+    border-collapse: separate;
+    border-spacing: 30px 1px;
+}
+
 /*_____-----SKIN-----_____*/
 body{
     background: #ffffff;  /* fallback for old browsers */
@@ -245,7 +259,7 @@ body{
     /*background: linear-gradient(to bottom, #8c8c8c, #ffffff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.navbar{
+.navbar, .dropdown-menu{
     background-color: rgba(36, 35, 35, 0.987);
 }
 
@@ -267,7 +281,7 @@ body{
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-.navbar-dark .navbar-nav .nav-link{
+.navbar-dark .navbar-nav .nav-link, .dropdown-item{
     color: rgb(170, 223, 252) ;
     text-shadow: 1px -4px 4px rgb(40, 8, 247), 1px -8px 5px rgb(0, 0, 0);
 }
@@ -551,6 +565,17 @@ h1, .contacto-h2 h2, .loguearse h2 {
     margin: 0 9px;
 }
 
+.camposDinamicos div, .filtro .camposDinamicos{
+    background: none;
+    position: static;
+    margin: 20px 0;
+    width: 90%;
+}
+
+.filtro .camposDinamicos{
+    margin-top: 150px;
+}
+
 /*_____-----PSEUDOCLASES-----_____*/
 
 .navbar-dark .navbar-nav .nav-link:hover{
@@ -563,6 +588,14 @@ h1, .contacto-h2 h2, .loguearse h2 {
 
     box-shadow:  0px -1px 5px rgba(8, 247, 48, 0.487), 0px -5px 20px rgb(0, 0, 0);
     
+}
+
+.dropdown-item:hover{
+    transition: 0.5s;
+    color: rgb(250, 250, 250) ;
+    text-shadow: 1px -5px 4px rgb(8, 247, 48), 1px -8px 5px rgb(0, 0, 0);
+    border-left: 1px  solid rgb(8, 247, 48) ;
+    background-color: transparent;
 }
 
 .carousel-control-prev:hover, .carousel-control-next:hover{
