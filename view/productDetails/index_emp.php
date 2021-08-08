@@ -35,7 +35,6 @@
             <div class="shop-buttons mt-5">
                 <h3><input type="number" size="5" name="precio" placeholder="$ <?php echo $this->newProduct ? "Precio" : $this->producto->precio; ?>"></h3>
                 <div class="ml-5">
-                    <!-- <-- UN IF PARA LOS BOTONES -->
                     <?php if ($this->newProduct) { ?>
                         <input type="submit" name="agregar" value="Confirmar">
                     <?php } else { ?>
@@ -49,11 +48,11 @@
     </section>
 </form>
 
-<section class="product-details container-fluid <?php echo $this->newProduct ? "d-none" : ""; ?>">
+<section class="product-details  <?php echo $this->newProduct ? "d-none" : ""; ?>">
     <h2 class="display-4">Características</h2>
     <hr class="linea">
-    <form action="<?php $_PHP_SELF; ?>" method="POST">
-        <table>
+    <form action="<?php $_PHP_SELF; ?>" method="POST" class="container">
+        <table class="tabla">
 
             <thead>
                 <tr>
@@ -91,7 +90,12 @@
                                 <?php } else { ?>
                                     <input type="submit" name="enviarCaract-<?php echo $cont; ?>" value="Editar">
                             </td>
-                            <!--<td><input class="" type="submit" name="mostrarEspec" value="<?php echo $clave["Mostrar"] == 0 ? "Activar" : "Desactivar"; ?>"></td>-->
+                            <td><form  method="POST">
+                                <input type="hidden" name="ID_Espec" value="<?php echo $claveP["ID"];?>">
+        
+                                <input type="submit" name="mostrarEspec" value="<?php echo $claveP["Mostrar"] == 0 ? "Activar" : "Desactivar"; ?>">
+                                </form>
+                            </td>
                         <?php } ?> </td>
                         </tr>
                 <?php }
@@ -115,8 +119,7 @@
 
 </section>
 
-<section class="product-comments pb-5 <?php echo $this->newProduct ? "d-none" : "";
-                                        echo $this->tienePermiso("DELCOM") ? "" : "d-none" ?>">
+<section class="product-comments pb-5 <?php echo $this->newProduct || !$this->tienePermiso($this->codes[2]["Code"]) ? "d-none" : "";?>">
     <div class="container">
         <h2 class="display-4 comen-m">Comentarios</h2>
         <hr class="linea">
@@ -137,6 +140,37 @@
                         <a href="productDetails?<?php echo "id=" . $_GET["id"] ?>">Limpiar Filtros</a>
                     </li>
                 </ul>
+                
+                <div class="camposDinamicos">
+                <h3>Campos Dinámicos</h3>
+                <hr class="linea">
+                
+                <form action="" method="POST" >
+                    <div>
+                        <label for="label">Label: </label>
+                        <input type="text" name="label" id="" required>
+                    </div>
+                    <div>
+                        <label for="tipo">Tipo de campo: </label>
+                        <select name="tipo" id="">
+                            <option value="select" required>Select</option>
+                            <option value="checkbox" required>Checkbox</option>
+                            <option value="radio" required>Radio button</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="requerido">¿Requerido? </label>
+                        <input type="radio" name="requerido" value="1" required>Si</input>
+                        <input type="radio" name="requerido" value="0" required>No</input>
+                    </div>
+                    <div>
+                        <label for="opcion">Opciones:</label>
+                        <input type="text" name="opcion" id="" required>
+                    </div>
+                    <input type="submit" name="setCampo" value="Añadir Campo">
+                </form>
+                </div>
+                
             </div>
             <div class="col">
                 <ul>
@@ -151,7 +185,14 @@
                                     <?php } ?>
                                     <br>
                             <?php } else if ($subclave != "Mostrar" && $subclave != "ID") {
+                                if($subclave == "campo_Dinamico"){
+                                    foreach($subvalor as $deepClave){
+                                        echo $deepClave["Label"], ": ", $deepClave["Valor"], "<br>";
+                                    }
+                                }else{
                                     echo $subclave, ": ", $subvalor, "<br>";
+                                }
+                                    
                                 }
                             } ?>
                             <form action="<?php $_PHP_SELF; ?>" method="POST">
@@ -162,6 +203,81 @@
                     <?php  } ?>
                 </ul>
             </div>
+        </div>
+        <div>
+        <h3 class="mt-5">Editar Campos Dinámicos</h3>
+                <hr class="linea">
+                    <table  class="tabla">
+                        <thead>
+                            <th>Label</th>
+                            <th>Tipo</th>
+                            <th>Requerido</th>
+                            <th>Opcion</th>
+                            <th class="">Editar</th>
+                            <th class="">Activar/Desactivar</th>
+                        </thead>
+                        <tbody>
+                            <?php $cont = 0;
+                                foreach($this->camposDinamicos as $clave){
+                                    $cont++; ?>
+                                    <form action="" method="post">
+                                    <tr>
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="text" name="label" id="" placeholder="<?php echo $clave["label"]; ?>" value="<?php echo $clave["label"]; ?>" required>
+                                            <?php } else { ?>
+                                                <?php echo $clave["label"]; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <select name="tipo" id="" required>
+                                                    <option value="select" required>Select</option>
+                                                    <option value="checkbox" required>Checkbox</option>
+                                                    <option value="radio" required>Radio button</option>
+                                                </select>
+                                            <?php } else { ?>
+                                                <?php echo $clave["tipo"]; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <select name="requerido" id="" required>
+                                                    <option value="1" required>Si</option>
+                                                    <option value="0" required>No</option>
+                                                </select>
+                                            <?php } else { ?>
+                                                <?php echo $clave["requerido"] = 1 ? "Si" : "No"; ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="text" name="opcion" id="" placeholder="<?php echo implode(",", $clave["opcion"]); ?>" value="<?php echo implode(",", $clave["opcion"]); ?>" required>
+                                            <?php } else { ?>
+                                                <?php echo implode(",", $clave["opcion"]); ?>
+                                            <?php } ?> 
+                                        </td>
+
+                                        <td>
+                                            <?php if (isset($_POST["editarCampo-". $cont])) { ?>
+                                                <input type="submit" name="editCampo" value="Confirmar">
+                                            <?php } else { ?>
+                                                <input type="submit" name="editarCampo-<?php echo $cont; ?>" value="Editar">
+                                            <?php } ?> 
+                                        </td>
+                                        <input type="hidden" name="ID" value="<?php echo $clave["ID"]; ?>">
+                                        <td><input class="" type="submit" name="stateCampo" value="<?php echo $clave["Activo"] == 0 ? "Activar" : "Desactivar"; ?>"></td>
+                                        
+                                    </tr>
+                                    </form>
+                                <?php }
+                            ?>
+                            
+                        </tbody>
+                    </table>
         </div>
     </div>
 </section>

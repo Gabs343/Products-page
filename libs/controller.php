@@ -4,6 +4,7 @@
         {
             session_start();
             $this->view = new View();
+            $this->view->isEmpleado = $this->isEmpleado();
         }
 
         public function loadModel($modelo){
@@ -12,21 +13,25 @@
                 require $url;
                 $modelName = $modelo."Modelo";
                 $this->modelo = new $modelName();
+                $this->modelo->isEmpleado = $this->isEmpleado();
             }
-        }
-
-        public function getPerfil(){
-            $perfil = null;
-            if(!empty($_SESSION)){
-                $perfil = $this->modelo->getperfil();
-            }
-            return $perfil;
         }
 
         public function isSubmit($form){
             if(isset($_POST[$form])){
                 $this->{$form}();
             }   
+        }
+
+        public function isEmpleado(){
+            $isEmpleado = false;
+            if(!empty($_SESSION)){
+                if($_SESSION["Perfil"] > 2){
+                    $isEmpleado = true;
+                }
+            }
+
+            return $isEmpleado;
         }
     }
 

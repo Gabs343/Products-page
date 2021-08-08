@@ -19,6 +19,21 @@
             
         }
 
+        public function getPermisosCodes(){
+            $codes = [];
+            try{
+                $query = "SELECT Code FROM permiso";
+                $con = $this->db->connect();
+                $con = $con->query($query);
+                while($row = $con->fetch(PDO::FETCH_ASSOC)){
+                    array_push($codes, $row);
+                }
+                return $codes;
+            }catch(PDOException $e){
+                return [];
+            }
+        }
+
     }
 
 ?>

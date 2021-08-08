@@ -41,8 +41,28 @@
 
     <div class="collapse navbar-collapse separador-navbar" id="collapsibleNavId">
         <ul class="navbar-nav mt-1">
+<<<<<<< HEAD
             <li class="nav-item">
+=======
+            <li class="nav-item active <?php echo $this->isEmpleado ? "d-none" : ""; ?>">
+>>>>>>> main
                 <a class="nav-link" href="main">Home</a>
+            </li>
+            <li class="nav-item  <?php echo !$this->isEmpleado || !$this->tienePermiso($this->codes[9]["Code"]) ? "d-none" : ""; ?> ">
+                <a class="nav-link" href="main?showList=Clientes">Clientes</a>
+            </li>
+            <li class="nav-item  <?php echo !$this->isEmpleado || !$this->tienePermiso($this->codes[7]["Code"]) ? "d-none" : ""; ?>">
+                <a class="nav-link" href="main?showList=Perfiles">Perfiles</a>
+            </li>
+            <li class="nav-item dropdown <?php echo !$this->isEmpleado ? "d-none" : ""; ?>">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtros
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="main?showList=Categorias">Categorias</a>
+                    <a class="dropdown-item" href="main?showList=Marcas">Marcas</a>
+                    <a class="dropdown-item" href="main?showList=Condiciones">Condiciones</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="productList?categoria=0&marca=0&condicion=0&orden=0">Productos</a>

@@ -7,10 +7,25 @@ function TextDescription($string){
     }
 }
 
+<<<<<<< HEAD
 function mensajeC($txt) {?>
     <script>
         alert("<?php echo $txt; ?>")
     </script>
 <?php }
+=======
+function showArrayContent($array){
+    echo "<pre>";
+    print_r($array);
+    echo "</pre>";
+}
+
+/*
+function consulta($txt) {?>
+<script>
+alert("<?php echo $txt; ?>")
+</script>
+<?php }*/
+>>>>>>> main
 
 ?>
