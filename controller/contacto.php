@@ -1,4 +1,7 @@
 <?php 
+
+require_once ('tools.php');
+
     class Contacto extends Controller{
         function __construct()
         {
@@ -33,6 +36,14 @@
             );
 
             $exito = $this->modelo->insertConsulta($consulta);
+
+            if($exito){
+                require_once ('config\correo_respuesta.php');
+                consulta('Muchas gracias por su consulta, '.$_POST["nombre"].', ya nos contactaremos con vos.');
+                $mail->AddAddress('isaac.hernandez@davinci.edu.ar');
+                $mail->Send();
+                //echo "<meta http-equiv='refresh' content='0'>";
+            }
         }
 
     }

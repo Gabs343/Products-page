@@ -74,3 +74,15 @@
 
 </nav>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+$('li a').filter(function(){
+    return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+		$('li a').click(function(){
+			$(this).parent().addClass('active').siblings().removeClass('active')	
+		})
+});
+
+</script>

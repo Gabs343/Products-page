@@ -27,7 +27,6 @@
                     $producto->precio = $row["Precio"];
                     $producto->imagen = $row["ruta"];
                     array_push($productos, $producto);
-
                 }
                 return $productos;
             }catch(PDOException $e){

@@ -13,11 +13,11 @@ function showArrayContent($array){
     echo "</pre>";
 }
 
-/*
+
 function consulta($txt) {?>
 <script>
 alert("<?php echo $txt; ?>")
 </script>
-<?php }*/
+<?php }
 
 ?>
