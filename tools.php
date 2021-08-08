@@ -6,11 +6,11 @@ function TextDescription($string){
         echo $array_text[$i] == "." ? "<br><br>" : "";
     }
 }
-/*
-function consulta($txt) {?>
-<script>
-alert("<?php echo $txt; ?>")
-</script>
-<?php }*/
+
+function mensajeC($txt) {?>
+    <script>
+        alert("<?php echo $txt; ?>")
+    </script>
+<?php }
 
 ?>

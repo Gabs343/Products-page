@@ -41,7 +41,7 @@
 
     <div class="collapse navbar-collapse separador-navbar" id="collapsibleNavId">
         <ul class="navbar-nav mt-1">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="main">Home</a>
             </li>
             <li class="nav-item">
@@ -58,3 +58,15 @@
 
 </nav>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+$('li a').filter(function(){
+    return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+		$('li a').click(function(){
+			$(this).parent().addClass('active').siblings().removeClass('active')	
+		})
+});
+
+</script>
