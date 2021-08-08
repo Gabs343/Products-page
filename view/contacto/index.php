@@ -57,11 +57,7 @@
 		            <textarea rows="3" id="textarea" placeholder="Mensaje" name="mensaje" class="form-control" required></textarea>
 	            </div>
 
-<<<<<<< HEAD
-		        <button class="btn btn-primary mt-2" type="submit" name="sendContacto">Enviar</button>
-=======
 		        <button class="btn btn-primary mt-2" type="submit" name="sendConsulta">Enviar</button>
->>>>>>> main
 
 	            </fieldset>
                 </form>

@@ -36,20 +36,16 @@ require_once ('tools.php');
             );
 
             $exito = $this->modelo->insertConsulta($consulta);
+
+            if($exito){
+                require_once ('config\correo_respuesta.php');
+                consulta('Muchas gracias por su consulta, '.$_POST["nombre"].', ya nos contactaremos con vos.');
+                $mail->AddAddress('isaac.hernandez@davinci.edu.ar');
+                $mail->Send();
+                //echo "<meta http-equiv='refresh' content='0'>";
+            }
         }
 
-<<<<<<< HEAD
-        public function sendContacto(){
-            $fecha = intval(date("YmdHis"));
-            $query = "INSERT INTO contacto (nombre, apellido, email, celular, area, mensaje, fechaContacto) VALUES
-            ('$_POST[nombre]', '$_POST[apellido]', '$_POST[email]', '$_POST[celular]', '$_POST[area]', '$_POST[mensaje]', $fecha)";
-            $con = $this->db->connect();
-            $con = $con->prepare($query);
-            $mail->AddAddress('isaac.hernandez@davinci.edu.ar', $_POST["area"]);
-            $mail->Send();
-        }
-=======
->>>>>>> main
     }
 
 ?>

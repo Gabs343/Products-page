@@ -41,11 +41,7 @@
 
     <div class="collapse navbar-collapse separador-navbar" id="collapsibleNavId">
         <ul class="navbar-nav mt-1">
-<<<<<<< HEAD
-            <li class="nav-item">
-=======
             <li class="nav-item active <?php echo $this->isEmpleado ? "d-none" : ""; ?>">
->>>>>>> main
                 <a class="nav-link" href="main">Home</a>
             </li>
             <li class="nav-item  <?php echo !$this->isEmpleado || !$this->tienePermiso($this->codes[9]["Code"]) ? "d-none" : ""; ?> ">

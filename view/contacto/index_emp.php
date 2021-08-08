@@ -1,9 +1,4 @@
 <?php require "view/header.php"; ?>
-<<<<<<< HEAD
-
-
-
-=======
 <div class="container m-5">
     <h1>Consultas</h1>
     <hr class="linea">
@@ -30,5 +25,4 @@
         </tbody>
     </table>
 </div>
->>>>>>> main
 <?php require "view/footer.php"; ?>

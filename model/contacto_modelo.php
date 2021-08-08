@@ -6,23 +6,6 @@ class ContactoModelo extends Model
         parent::__construct();
     }
 
-<<<<<<< HEAD
-    public function getCorreos() {
-        $correos = [];
-        try {
-            $query = "SELECT * FROM contacto";
-            $con = $this->db->connect();
-            $con = $con->query($query);
-
-            while($row = $con->fetch(PDO::FETCH_ASSOC)){
-                array_push($correos, $row);
-            }
-            return $correos;
-        } catch (PDOException $e){
-            return [];
-        }
-    }
-=======
     public function getConsult(){
         $consultas = [];
         
@@ -53,7 +36,6 @@ class ContactoModelo extends Model
             }
         return $exito;
     }
->>>>>>> main
 }
 
 ?>
