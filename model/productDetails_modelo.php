@@ -134,13 +134,8 @@
         }
 // AGREGANDO AGREGAR PRODUCTOS
         public function agregarProducto($datos){
-<<<<<<< HEAD
             $query = "INSERT INTO producto (ID, Nombre, Precio, Descripcion, ID_Marca, ID_Categoria, ID_Condicion)
             VALUES (:id, :nombre, :precio, :descripcion, :marca, :categoria, :condicion)";
-=======
-            $query = "INSERT INTO producto (Nombre, Precio, Descripcion, ID_Marca, ID_Categoria, ID_Condicion)
-            VALUES (:nombre, :precio, :descripcion, :marca, :categoria, :condicion)";
->>>>>>> main
             $con = $this->db->connect();
             $con = $con->prepare($query);
 
