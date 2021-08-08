@@ -16,7 +16,7 @@
         public function sendSubs(){
             
             $nombrea = $_FILES["img"]["name"] ; //Guardamos el nombre del archivo
-            $nombrer = strtolower($nombrea); //Convertimos las letras en miniscula
+            $nombrer = strtolower($nombrea); //Convertimos las letras en minuscula
             $cd=$_FILES["img"]["tmp_name"]; //Guardamos en un fichero temporal
             $ruta = "public/img/avatar/".$nombrer;
             move_uploaded_file($_FILES["img"]["tmp_name"], $ruta);
